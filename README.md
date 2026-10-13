@@ -1,6 +1,4 @@
-# securitymanager-privacy
-
-# SecurityManager privacy policy (v1.0.0)
+# # SecurityManager (Chrome Extension) privacy policy (v1.0.0)
 
 *Effective with version 1.0.0. Plan v1, ROADMAP E5-S05; D-085, D-089, D-104, D-149.*
 
