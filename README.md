@@ -1,13 +1,13 @@
 # securitymanager-privacy
 
-# SecurityManager privacy policy (v1.0)
+# SecurityManager privacy policy (v1.0.0)
 
 *Effective with version 1.0.0. Plan v1, ROADMAP E5-S05; D-085, D-089, D-104, D-149.*
 
 ## The short version
 - **SecurityManager collects nothing and sends nothing.** It has no account, no server, no analytics and no crash reporting, and it makes **no network requests** of any kind. Its content security policy allows connections only to the extension itself (`connect-src 'self'`).
 - **Your logins are stored on this computer and may be backed up and exported to the file you choose .
-- **Turn on full-disk encryption:** FileVault on macOS, BitLocker on Windows, LUKS on Linux. It is the protection v1.0 relies on.
+- **Turn on full-disk encryption:** FileVault on macOS, BitLocker on Windows, LUKS on Linux.
 
 ## What SecurityManager stores, and where
 | Data | Where | Secure? |
