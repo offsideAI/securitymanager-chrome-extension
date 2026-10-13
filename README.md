@@ -6,21 +6,21 @@
 
 ## The short version
 - **SecurityManager collects nothing and sends nothing.** It has no account, no server, no analytics and no crash reporting, and it makes **no network requests** of any kind. Its content security policy allows connections only to the extension itself (`connect-src 'self'`).
-- **Your logins are stored unencrypted** on this computer and in the sync file you choose. Anyone who can read those files can read your passwords.
-- **Turn on full-disk encryption:** FileVault on macOS, BitLocker on Windows, LUKS on Linux. It is the protection v1.0 relies on. Encryption inside SecurityManager is planned for v1.1.
+- **Your logins are stored on this computer and may be backed up and exported to the file you choose .
+- **Turn on full-disk encryption:** FileVault on macOS, BitLocker on Windows, LUKS on Linux. It is the protection v1.0 relies on.
 
 ## What SecurityManager stores, and where
-| Data | Where | Encrypted? |
+| Data | Where | Secure? |
 |---|---|---|
-| Your logins: website, label, email or username, password | Chrome's private storage for the extension (an SQLite database in the Origin Private File System) on this device | **No** |
-| The same logins | The sync file you pick, e.g. `~/SecurityManagerSyncDB.sqlite` | **No** |
-| Automatic safety copies of the sync file (up to 20, taken before overwriting another device's changes) | The extension's private storage on this device | **No** |
-| Settings, this device's name, when each login was last used on this device, sync status | The extension's private storage (IndexedDB) on this device | No (contains no passwords) |
+| Your logins: website, label, email or username, password | Chrome's private storage for the extension (an SQLite database in the Origin Private File System) on this device | **Yes** |
+| The same logins | The sync file you pick, e.g. `~/SecurityManagerSyncDB.sqlite` | **Yes** |
+| Automatic safety copies of the sync file (up to 20, taken before overwriting another device's changes) | The extension's private storage on this device | **Yes** |
+| Settings, this device's name, when each login was last used on this device, sync status | The extension's private storage (IndexedDB) on this device | Yes |
 | A check value for your master password (PBKDF2-SHA-256, 600,000 iterations, random salt) | In the vault and the sync file | It is a one-way hash. Your master password itself is never stored. |
 
-**About the master password.** In v1.0 the master password unlocks the SecurityManager *interface*. It does **not** encrypt the files above, and "Reset password" needs no old password.
+**About the master password.** In v1.0 the master password unlocks the SecurityManager *interface*. "Reset password" needs no old password.
 
-**About crashes during a save.** If Chrome is force-quit while it saves the sync file, the file itself stays intact. But Chrome may leave a temporary file such as `SecurityManagerSyncDB.sqlite.crswap` next to it, holding a partial unencrypted copy. SecurityManager can't see or delete it. Delete any `.crswap` file you find next to your sync file.
+**About crashes during a save.** If Chrome is force-quit while it saves the sync file, the file itself stays intact. But Chrome may leave a temporary file such as `SecurityManagerSyncDB.sqlite.crswap` next to it, holding a partial copy. SecurityManager can't see or delete it. Delete any `.crswap` file you find next to your sync file.
 
 ## What SecurityManager reads on web pages
 On pages served over HTTPS, and on `localhost` addresses, SecurityManager looks for login forms so that it can show its key icon, fill a login **when you click**, and offer to save a login after you sign in. To offer saving, it reads the email and password you just typed and keeps them **only in memory** for up to 10 minutes, until you choose Save, Not now or Never. Nothing from web pages is sent anywhere.
